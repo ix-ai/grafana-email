@@ -25,6 +25,7 @@ pylint:
     - curl -o .pylintrc https://tool.ix.ai/.pylintrc
     - pip install prometheus_client pylint pygelf requests pillow
     - pylint --rcfile=.pylintrc src/*.py
+  <<: *tags-definition
 
 build:test:
   except:
