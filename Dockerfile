@@ -1,4 +1,5 @@
 FROM registry.gitlab.com/ix.ai/alpine:latest
+LABEL MAINTAINER="docker@ix.ai"
 
 ENV SMTP_PORT=25 SMTP_HOST=localhost SMTP_SUBJECT="Grafana Email Report"
 ENV PANEL_IDS=1 PANEL_ORG_ID=1 PANEL_FROM=now-1d PANEL_TO=now PANEL_TIMEOUT=30 PANEL_WIDTH=500 PANEL_HEIGHT=250 PANEL_THEME=light
