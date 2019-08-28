@@ -1,9 +1,12 @@
 variables:
   DOCKER_DRIVER: overlay2
+  DOCKERHUB_REPO_PREFIX: ixdotai
+  DOCKERHUB_REPO_NAME: grafana-email
 
 stages:
   - lint
   - build
+  - release
 
 .tags-template: &tags-definition
   tags:
@@ -15,23 +18,31 @@ stages:
     entrypoint: [""]
   stage: build
   script:
-    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"username\":\"${CI_REGISTRY_USER}\",\"password\":\"${CI_REGISTRY_PASSWORD}\"}}}" > /kaniko/.docker/config.json
-    - /kaniko/executor --context ${CI_PROJECT_DIR} --dockerfile ${CI_PROJECT_DIR}/Dockerfile --destination ${IMAGE_TAG}
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"username\":\"${CI_REGISTRY_USER}\",\"password\":\"${CI_REGISTRY_PASSWORD}\"},\"index.docker.io\":{\"auth\":\"${DOCKERHUB_REGISTRY_AUTH}\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context ${CI_PROJECT_DIR} --dockerfile ${CI_PROJECT_DIR}/Dockerfile --build-arg PORT=${PORT} ${DESTINATION}
 
 pylint:
   image: python:latest
   stage: lint
   script:
-    - curl -o .pylintrc https://tool.ix.ai/.pylintrc
-    - pip install prometheus_client pylint pygelf requests pillow
+    - pip install pylint pygelf requests pillow
     - pylint --rcfile=.pylintrc src/*.py
   <<: *tags-definition
 
-build:test:
+build:dev:
   except:
     - master
+    - tags
   before_script:
-    - export IMAGE_TAG="${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME}"
+    - export DESTINATION="--destination ${CI_REGISTRY_IMAGE}:dev-${CI_COMMIT_REF_NAME}"
+  <<: *tags-definition
+  <<: *build-definition
+
+build:tags:
+  only:
+    - tags
+  before_script:
+    - export DESTINATION="--destination ${CI_REGISTRY_IMAGE}:${CI_COMMIT_REF_NAME} --destination=index.docker.io/${DOCKERHUB_REPO_PREFIX}/${DOCKERHUB_REPO_NAME}:${CI_COMMIT_REF_NAME}"
   <<: *tags-definition
   <<: *build-definition
 
@@ -39,6 +50,19 @@ build:release:
   only:
     - master
   before_script:
-    - export IMAGE_TAG="${CI_REGISTRY_IMAGE}:latest"
+    - export DESTINATION="--destination ${CI_REGISTRY_IMAGE}:latest --destination=index.docker.io/${DOCKERHUB_REPO_PREFIX}/${DOCKERHUB_REPO_NAME}:latest"
   <<: *tags-definition
   <<: *build-definition
+
+publish:readme:
+  stage: release
+  variables:
+    README_PATH: ${CI_PROJECT_DIR}/README.md
+  only:
+    - master
+  image:
+    name: sheogorath/readme-to-dockerhub:latest
+    entrypoint: ['']
+  script:
+    - node /app/index.js
+  <<: *tags-definition
