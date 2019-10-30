@@ -62,6 +62,7 @@ class GrafanaEmail:
         self.grafana['header_host'] = os.environ.get('GRAFANA_HEADER_HOST')
         self.grafana['port'] = int(os.environ.get('GRAFANA_PORT', 3000))
         self.grafana['panel_ids'] = os.environ.get('PANEL_IDS', '1')
+        self.grafana['url_params'] = os.environ.get('GRAFANA_URL_PARAMS')
 
         self.panel_args['orgId'] = os.environ.get('PANEL_ORG_ID', '1')
         self.panel_args['timeout'] = int(os.environ.get('PANEL_TIMEOUT', '5'))
@@ -92,6 +93,10 @@ class GrafanaEmail:
             port=self.grafana['port'],
             dashboard=self.grafana['dashboard']
         )
+
+        if self.grafana.get('url_params'):
+            uri = '{uri}?{url_params}'.format(uri=uri, url_params=self.grafana['url_params'])
+
         LOG.info('Setting download URI to {}'.format(uri))
 
         params = {}
