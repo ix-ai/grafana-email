@@ -1,6 +1,10 @@
 variables:
-  DOCKERHUB_REPO_PREFIX: ixdotai
   DOCKERHUB_REPO_NAME: grafana-email
+  QUAY_REPO_NAME: grafana-email
+  ENABLE_ARM64: 'true'
+  ENABLE_ARMv7: 'true'
+  ENABLE_ARMv6: 'true'
 
 include:
-  - remote: https://gitlab.com/ix.ai/ci-templates/raw/master/python-project.yml
+  - project: 'ix.ai/ci-templates'
+    file: '/python-project.yml'
