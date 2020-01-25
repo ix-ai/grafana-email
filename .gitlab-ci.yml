@@ -1,9 +1,9 @@
 variables:
   DOCKERHUB_REPO_NAME: grafana-email
   QUAY_REPO_NAME: grafana-email
-  ENABLE_ARM64: 'true'
-  ENABLE_ARMv7: 'true'
-  ENABLE_ARMv6: 'true'
+  # ENABLE_ARM64: 'true'
+  # ENABLE_ARMv7: 'true'
+  # ENABLE_ARMv6: 'true'
 
 include:
   - project: 'ix.ai/ci-templates'
