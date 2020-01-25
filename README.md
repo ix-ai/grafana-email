@@ -106,6 +106,13 @@ OnCalendar=06:59
 WantedBy=multi-user.target
 ```
 
+## Tags and Arch
+
+Starting with version v0.3.0, the images are multi-arch, with builds for amd64, arm64 and armv7.
+* `vN.N.N` - for example v0.3.0
+* `latest` - always pointing to the latest version
+* `dev-master` - the last build on the master branch
+
 ## Resources:
 * GitLab: https://gitlab.com/ix.ai/grafana-email
 * GitHub: https://github.com/ix-ai/grafana-email
