@@ -108,4 +108,5 @@ WantedBy=multi-user.target
 
 ## Resources:
 * GitLab: https://gitlab.com/ix.ai/grafana-email
+* GitHub: https://github.com/ix-ai/grafana-email
 * Docker Hub: https://hub.docker.com/r/ixdotai/grafana-email
