@@ -7,7 +7,7 @@
 
 Connects to Grafana and sends an e-mail with attached graphs.
 
-> **Warning!** For grafana-email to work, you need the [grafana-image-renderer](https://grafana.com/grafana/plugins/grafana-image-renderer) plugin. For details, see also the docs about [Image Rendering](https://grafana.com/docs/grafana/latest/administration/image_rendering/).
+> **Warning!** For grafana-email to work, you need the [grafana-image-renderer](https://grafana.com/grafana/plugins/grafana-image-renderer) plugin (details also here: [Image Rendering](https://grafana.com/docs/grafana/latest/administration/image_rendering/)). I'm using the docker image [grafana/grafana-image-renderer](https://hub.docker.com/r/grafana/grafana-image-renderer) for this. See below the example under [Grafana configuration on docker swarm, with grafana-image-renderer](#grafana-configuration-on-docker-swarm-with-grafana-image-renderer)
 
 ## Supported environment variables
 Example panel url:
@@ -106,6 +106,27 @@ OnCalendar=06:59
 
 [Install]
 WantedBy=multi-user.target
+```
+
+### Grafana configuration on docker swarm, with grafana-image-renderer
+```yml
+version: '3.7'
+
+services:
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      GF_INSTALL_PLUGINS: grafana-image-renderer
+      GF_LOG_FILTERS: rendering:debug
+      GF_RENDERING_SERVER_URL: http://grafana-image-renderer:8081/render
+      GF_RENDERING_CALLBACK_URL: http://grafana:3000/
+  grafana-image-renderer:
+    image: grafana/grafana-image-renderer:latest
+    networks:
+      - grafana-email
+    environment:
+      ENABLE_METRICS: 'true'
+      LOG_LEVEL: 'info'
 ```
 
 ## Tags and Arch
