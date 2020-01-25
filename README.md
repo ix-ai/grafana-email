@@ -7,6 +7,8 @@
 
 Connects to Grafana and sends an e-mail with attached graphs.
 
+> **Warning!** For grafana-email to work, you need the [grafana-image-renderer](https://grafana.com/grafana/plugins/grafana-image-renderer) plugin. For details, see also the docs about [Image Rendering](https://grafana.com/docs/grafana/latest/administration/image_rendering/).
+
 ## Supported environment variables
 Example panel url:
 ```
