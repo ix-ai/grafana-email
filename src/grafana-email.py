@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" do shit """
+""" Connects to Grafana and retrieves the panels, which are then sent per Email """
 
 import logging
 import os
@@ -12,6 +12,7 @@ from io import BytesIO
 import requests
 from PIL import Image
 import pygelf
+import constants
 
 
 LOG = logging.getLogger(__name__)
@@ -22,6 +23,8 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
+FILENAME = os.path.splitext(sys.modules['__main__'].__file__)[0]
+
 
 def configure_logging():
     """ Configures the logging """
@@ -30,7 +33,8 @@ def configure_logging():
             host=os.environ.get('GELF_HOST'),
             port=int(os.environ.get('GELF_PORT', 12201)),
             debug=True,
-            include_extra_fields=True
+            include_extra_fields=True,
+            _ix_id=FILENAME
         )
         LOG.addHandler(GELF)
         LOG.info('Initialized logging with GELF enabled')
@@ -172,7 +176,8 @@ class GrafanaEmail:
 
 if __name__ == '__main__':
     configure_logging()
-    LOG.info("Starting")
+    # pylint: disable=no-member
+    LOG.info("Starting {} {}".format(FILENAME, constants.VERSION))
     grafana = GrafanaEmail()
     grafana.get_panels()
     grafana.send_email()
