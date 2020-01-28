@@ -44,7 +44,7 @@ You can see the panel url by selecting `Share` in a panel menu (click on its nam
 | `PANEL_TZ`            | -                      | NO            | the timezone, needed for timestamp `PANEL_FROM` or `PANEL_TO` (example: `Europe/Oslo`) |
 | `PANEL_TIMEOUT`       | -                      | NO            | the timeout for Grafana to generate the panel |
 | `GRAFANA_HEADER_HOST` | -                      | NO            | useful if the hostname of the Grafana host/container is set to something than the FQDN in Grafana |
-| `GRAFANA_URL_PARAMS`  | -                      | NO            | add additional URL params (example: `var-RequestHost=alex.thom.ae&var-Filters=OriginStatus|!%3D|404`) |
+| `GRAFANA_URL_PARAMS`  | -                      | NO            | add additional URL params (example: `var-RequestHost=alex&var-Filters=OriginStatus\|!%3D\|404`) |
 
 ## Examples
 ### Bash
