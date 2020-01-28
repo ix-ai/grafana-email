@@ -16,36 +16,35 @@ http://grafana1:3001/render/d-solo/gV6maGVZz/e-mail-reports?orgId=1&from=1562006
 ```
 
 You can see the panel url by selecting `Share` in a panel menu (click on its name) -> `Link` -> `Direct link rendered image`
-### Mandatory
-* `GRAFANA_TOKEN` (**mandatory** - no default) - the authentication token for Grafana
-* `GRAFANA_DASHBOARD` (**mandatory** - no default) - the short code for the dashboard (example: **`gV6maGVZz/e-mail-reports`**)
-* `SMTP_FROM` (**mandatory** - no default) - the e-mail address of the sender
-* `SMTP_TO` (**mandatory** - no default) - the e-mail address of the receipient
 
-### Optional, with defaults
-* `SMTP_PORT` (default: `25`) - the port for the SMTP host
-* `SMTP_HOST` (default: `localhost`) - the SMTP host
-* `SMTP_SUBJECT` (default: `Grafana Email Report`) - the e-mail subject
-* `PANEL_IDS` (default: `1`) - comma separated list with the IDs of the panels (example: `2`)
-* `PANEL_ORG_ID` (default: `1`) - the Grafana organization (in example: `1`)
-* `PANEL_FROM` (default: `now-1d`) - the start of the panel time interval (example: `1562006810978`)
-* `PANEL_TO` (default: `now`) - the end of the panel time interval (example: `1562078810980`)
-* `PANEL_WIDTH` (default: `500`) - the width of the image in pixels (example: `1000`)
-* `PANEL_HEIGHT` (default: `250`) - the height of the image in pixels (example: `500`)
-* `PANEL_THEME` (default: `light`) - one of `dark`, `light`
-* `GRAFANA_HOST` (default: `grafana`) - the hostname or FQDN of the Grafana host (example: `grafana1`)
-* `GRAFANA_PORT` (default: `3000`) - the port for the Grafana host (example: `3001`)
-* `GELF_PORT` (default: `12201`) - if `GELF_HOST` is configured (see below), use this **UDP** port for logging
-* `LOGLEVEL` (default: `INFO`)
 
-### Optional, without defaults
-* `GELF_HOST` (no default) - the GELF capable host, for logging
-* `SMTP_USER` (no default) - fill this out, if your SMTP server requires authentication
-* `SMTP_PASSWORD` (no default) - fill this out, if your SMTP server requires authentication
-* `PANEL_TZ` (no default) - the timezone, needed for timestamp `PANEL_FROM` or `PANEL_TO` (example: `Europe/Oslo`)
-* `PANEL_TIMEOUT` (no default) - the timeout for Grafana to generate the panel
-* `GRAFANA_HEADER_HOST` (no default) - useful if the docker hostname of the Grafana container is set to something different from the
-* `GRAFANA_URL_PARAMS` (no default) - add additional URL params (example: `var-RequestHost=alex.thom.ae&var-Filters=OriginStatus|!%3D|404`)
+| **Variable**          | **Default**            | **Mandatory** | **Description**                                                        |
+|:----------------------|:----------------------:|:-------------:|:-----------------------------------------------------------------------|
+| `GRAFANA_TOKEN`       | -                      | **YES**       | the authentication token for Grafana |
+| `GRAFANA_DASHBOARD`   | -                      | **YES**       | the short code for the dashboard (example: **`gV6maGVZz/e-mail-reports`**) |
+| `SMTP_FROM`           | -                      | **YES**       | the e-mail address of the sender |
+| `SMTP_TO`             | -                      | **YES**       | the e-mail address of the receipient |
+| `SMTP_PORT`           | `25`                   | NO            | the port for the SMTP host |
+| `SMTP_HOST`           | `localhost`            | NO            | the SMTP host |
+| `SMTP_SUBJECT`        | `Grafana Email Report` | NO            | the e-mail subject |
+| `PANEL_IDS`           | `1`                    | NO            | comma separated list with the IDs of the panels (example: `2`) |
+| `PANEL_ORG_ID`        | `1`                    | NO            | the Grafana organization (in example: `1`) |
+| `PANEL_FROM`          | `now-1d`               | NO            | the start of the panel time interval (example: `1562006810978`) |
+| `PANEL_TO`            | `now`                  | NO            | the end of the panel time interval (example: `1562078810980`) |
+| `PANEL_WIDTH`         | `500`                  | NO            | the width of the image in pixels (example: `1000`) |
+| `PANEL_HEIGHT`        | `250`                  | NO            | the height of the image in pixels (example: `500`) |
+| `PANEL_THEME`         | `light`                | NO            | one of `dark`, `light` |
+| `GRAFANA_HOST`        | `grafana`              | NO            | the hostname or FQDN of the Grafana host (example: `grafana1`) |
+| `GRAFANA_PORT`        | `3000`                 | NO            | the port for the Grafana host (example: `3001`) |
+| `GELF_PORT`           | `12201`                | NO            | if `GELF_HOST` is configured (see below), use this **UDP** port for logging |
+| `LOGLEVEL`            | `INFO`                 | NO            | [Logging Level](https://docs.python.org/3/library/logging.html#levels) |
+| `GELF_HOST`           | -                      | NO            | the GELF capable host, for logging |
+| `SMTP_USER`           | -                      | NO            | fill this out, if your SMTP server requires authentication |
+| `SMTP_PASSWORD`       | -                      | NO            | fill this out, if your SMTP server requires authentication |
+| `PANEL_TZ`            | -                      | NO            | the timezone, needed for timestamp `PANEL_FROM` or `PANEL_TO` (example: `Europe/Oslo`) |
+| `PANEL_TIMEOUT`       | -                      | NO            | the timeout for Grafana to generate the panel |
+| `GRAFANA_HEADER_HOST` | -                      | NO            | useful if the hostname of the Grafana host/container is set to something than the FQDN in Grafana |
+| `GRAFANA_URL_PARAMS`  | -                      | NO            | add additional URL params (example: `var-RequestHost=alex.thom.ae&var-Filters=OriginStatus|!%3D|404`) |
 
 ## Examples
 ### Bash
