@@ -178,7 +178,7 @@ class GrafanaEmail:
 if __name__ == '__main__':
     configure_logging()
     # pylint: disable=no-member
-    LOG.info(f"Starting {FILENAME} {constants.VERSION()}")
+    LOG.info(f"Starting {FILENAME} {constants.VERSION}")
     grafana = GrafanaEmail()
     grafana.get_panels()
     grafana.send_email()
