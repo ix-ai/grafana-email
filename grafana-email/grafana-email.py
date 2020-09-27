@@ -80,9 +80,10 @@ class GrafanaEmail:
         self.message['Subject'] = os.environ.get('SMTP_SUBJECT', 'Grafana Email Report')
         self.message['From'] = self.smtp['from']
         self.message['To'] = self.smtp['to']
-        LOG.debug('Panel options: {}'.format(self.panel_args))
-        LOG.debug('SMTP options: {}'.format(self.smtp))
-        LOG.debug('Grafana options: {}'.format(self.grafana))
+
+        LOG.debug(f'Panel options: {self.panel_args}')
+        LOG.debug(f'SMTP options: {self.smtp}')
+        LOG.debug(f'Grafana options: {self.grafana}')
 
     def get_panels(self):
         """ downloads each panel and saves it to a variable """
@@ -99,18 +100,18 @@ class GrafanaEmail:
         )
 
         if self.grafana.get('url_params'):
-            uri = '{uri}?{url_params}'.format(uri=uri, url_params=self.grafana['url_params'])
+            uri = f'{uri}?{self.grafana["url_params"]}'
 
-        LOG.info('Setting download URI to {}'.format(uri))
+        LOG.info(f'Setting download URI to {uri}')
 
         params = {}
         for param, arg in self.panel_args.items():
             if arg:
                 params.update({param: arg})
 
-        headers = {'Authorization': 'Bearer {}'.format(self._token)}
+        headers = {'Authorization': f'Bearer {self._token}'}
         if self.grafana.get('header_host'):
-            headers.update({'Host': '{}'.format(self.grafana['header_host'])})
+            headers.update({'Host': f"{self.grafana['header_host']}"})
 
         for panel in self.grafana['panel_ids'].split(','):
             params['panelId'] = panel
@@ -140,7 +141,7 @@ class GrafanaEmail:
                     <img src="cid:[[image]]" style="{width:[[width]]px;height:[[height]]px}" />
                 </p>
             """
-            html = html.replace('[[image]]', '{}_panel_{}.png'.format(host, panel))
+            html = html.replace('[[image]]', f'{host}_panel_{panel}.png')
             html = html.replace('[[width]]', str(self.panel_args['width']))
             html = html.replace('[[height]]', str(self.panel_args['height']))
         html += '</body></html>'
@@ -150,11 +151,11 @@ class GrafanaEmail:
 
         for panel, image in [(k, v) for x in self.panels for (k, v) in x.items()]:
             img = MIMEImage(image, 'png')
-            img.add_header('Content-ID', '<{host}_panel_{panel}.png>'.format(host=host, panel=panel))
+            img.add_header('Content-ID', f'<{host}_panel_{panel}.png>')
             img.add_header(
                 'Content-Disposition',
                 'inline',
-                filename='{host}_panel_{panel}.png'.format(host=host, panel=panel)
+                filename=f'{host}_panel_{panel}.png',
             )
             self.message.attach(img)
 
@@ -177,7 +178,7 @@ class GrafanaEmail:
 if __name__ == '__main__':
     configure_logging()
     # pylint: disable=no-member
-    LOG.info("Starting {} {}".format(FILENAME, constants.VERSION))
+    LOG.info(f"Starting {FILENAME} {constants.VERSION}")
     grafana = GrafanaEmail()
     grafana.get_panels()
     grafana.send_email()

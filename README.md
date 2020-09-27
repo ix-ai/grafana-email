@@ -3,6 +3,8 @@
 [![Pipeline Status](https://gitlab.com/ix.ai/grafana-email/badges/master/pipeline.svg)](https://gitlab.com/ix.ai/grafana-email/)
 [![Docker Stars](https://img.shields.io/docker/stars/ixdotai/grafana-email.svg)](https://hub.docker.com/r/ixdotai/grafana-email/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/ixdotai/grafana-email.svg)](https://hub.docker.com/r/ixdotai/grafana-email/)
+[![Docker Image Version (latest)](https://img.shields.io/docker/v/ixdotai/grafana-email/latest)](https://hub.docker.com/r/ixdotai/grafana-email/)
+[![Docker Image Size (latest)](https://img.shields.io/docker/image-size/ixdotai/grafana-email/latest)](https://hub.docker.com/r/ixdotai/grafana-email/)
 [![Gitlab Project](https://img.shields.io/badge/GitLab-Project-554488.svg)](https://gitlab.com/ix.ai/grafana-email/)
 
 Connects to Grafana and sends an e-mail with attached graphs.
@@ -130,7 +132,9 @@ services:
 
 ## Tags and Arch
 
-Starting with version v0.3.0, the images are multi-arch, with builds for amd64, arm64 and armv7.
+Starting with version v0.3.0, the images are multi-arch, with builds for amd64, arm64 and armv7. Version v0.4.0 also
+adds 386 build.
+
 * `vN.N.N` - for example v0.3.0
 * `latest` - always pointing to the latest version
 * `dev-master` - the last build on the master branch
