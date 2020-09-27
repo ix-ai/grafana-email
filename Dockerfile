@@ -1,6 +1,6 @@
 FROM alpine:latest
 LABEL maintainer="docker@ix.ai" \
-      ai.ix.repository="ix.ai/etherscan-exporter"
+      ai.ix.repository="ix.ai/grafana-email"
 
 WORKDIR /grafana-email
 
