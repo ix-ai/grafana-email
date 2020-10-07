@@ -132,19 +132,17 @@ class GrafanaEmail:
 
     def send_email(self):
         """ sends the email with the embedded panels """
-        html = '<html><body>'
+        html = '<html><body><p>'
         host = self.grafana['host']
 
         for panel, image in [(k, v) for x in self.panels for (k, v) in x.items()]:
-            html += """
-                <p>
-                    <img src="cid:[[image]]" style="{width:[[width]]px;height:[[height]]px}" />
-                </p>
-            """
-            html = html.replace('[[image]]', f'{host}_panel_{panel}.png')
-            html = html.replace('[[width]]', str(self.panel_args['width']))
-            html = html.replace('[[height]]', str(self.panel_args['height']))
-        html += '</body></html>'
+            width = str(self.panel_args['width'])
+            height = str(self.panel_args['height'])
+            html += (
+                f'<img src="cid:{host}_panel_{panel}.png"'
+                f' style="{{width:{width}px;height:{height}px;padding:10px}}" />'
+            )
+        html += '</p></body></html>'
 
         part = MIMEText(html, "html")
         self.message.attach(part)
