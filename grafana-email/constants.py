@@ -3,3 +3,4 @@
 """ Constants declarations """
 
 VERSION = None
+BUILD = None
