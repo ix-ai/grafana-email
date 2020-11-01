@@ -66,7 +66,7 @@ docker run -it --rm --name=grafana-email \
   -e GELF_HOST="graylog" \
   -e GRAFANA_HEADER_HOST="grafana.example.com" \
   -e LOGLEVEL="DEBUG" \
-  ixdotai/grafana-email:latest
+  registry.gitlab.com/ix.ai/grafana-email:latest
 ```
 
 ### systemd example:
@@ -142,4 +142,5 @@ adds 386 build.
 ## Resources:
 * GitLab: https://gitlab.com/ix.ai/grafana-email
 * GitHub: https://github.com/ix-ai/grafana-email
+* GitLab Registry: https://gitlab.com/ix.ai/grafana-email/container_registry
 * Docker Hub: https://hub.docker.com/r/ixdotai/grafana-email
