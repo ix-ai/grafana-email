@@ -12,7 +12,7 @@ from io import BytesIO
 import requests
 from PIL import Image
 import pygelf
-import constants
+from . import constants
 
 
 LOG = logging.getLogger(__name__)
