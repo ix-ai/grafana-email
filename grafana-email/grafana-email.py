@@ -3,7 +3,6 @@
 
 import logging
 import os
-import sys
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -11,33 +10,11 @@ from email.mime.image import MIMEImage
 from io import BytesIO
 import requests
 from PIL import Image
-import pygelf
-from . import constants
+from .lib import constants
 
 
 LOG = logging.getLogger(__name__)
-logging.basicConfig(
-    stream=sys.stdout,
-    level=os.environ.get("LOGLEVEL", "INFO"),
-    format='%(asctime)s.%(msecs)03d %(levelname)s {%(module)s} [%(funcName)s] %(message)s',
-    datefmt='%Y-%m-%d %H:%M:%S'
-)
-
-FILENAME = os.path.splitext(sys.modules['__main__'].__file__)[0]
-
-
-def configure_logging():
-    """ Configures the logging """
-    if os.environ.get('GELF_HOST'):
-        GELF = pygelf.GelfUdpHandler(
-            host=os.environ.get('GELF_HOST'),
-            port=int(os.environ.get('GELF_PORT', 12201)),
-            debug=True,
-            include_extra_fields=True,
-            _ix_id=FILENAME
-        )
-        LOG.addHandler(GELF)
-        LOG.info('Initialized logging with GELF enabled')
+version = f'{constants.VERSION}-{constants.BUILD}'
 
 
 class GrafanaEmail:
@@ -174,9 +151,7 @@ class GrafanaEmail:
 
 
 if __name__ == '__main__':
-    configure_logging()
-    # pylint: disable=no-member
-    LOG.info(f"Starting {FILENAME} {constants.VERSION}-{constants.BUILD}")
+    LOG.info(f"Starting {__package__} {version}")
     grafana = GrafanaEmail()
     grafana.get_panels()
     grafana.send_email()
