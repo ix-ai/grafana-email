@@ -69,12 +69,8 @@ class GrafanaEmail:
         if self.grafana.get('ssl'):
             method = 'https'
 
-        uri = '{method}://{host}:{port}/render/d-solo/{dashboard}'.format(
-            method=method,
-            host=self.grafana['host'],
-            port=self.grafana['port'],
-            dashboard=self.grafana['dashboard']
-        )
+        uri = f"{method}://{self.grafana['host']}:{self.grafana['port']}"
+        uri += f"/render/d-solo/{self.grafana['dashboard']}"
 
         if self.grafana.get('url_params'):
             uri = f'{uri}?{self.grafana["url_params"]}'
