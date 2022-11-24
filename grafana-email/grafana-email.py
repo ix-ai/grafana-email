@@ -40,6 +40,7 @@ class GrafanaEmail:
         self._smtp_password = os.environ.get('SMTP_PASSWORD')
         self.grafana['ssl'] = os.environ.get('GRAFANA_SSL')
         self.grafana['ssl_verify'] = os.environ.get('GRAFANA_SSL_VERIFY', 'TRUE').lower() in ['true', '1', 'yes', 'y']
+        self.grafana['timeout'] = int(os.environ.get('GRAFANA_TIMEOUT', 60))
         self.grafana['host'] = os.environ.get('GRAFANA_HOST', 'grafana')
         self.grafana['header_host'] = os.environ.get('GRAFANA_HEADER_HOST')
         self.grafana['port'] = int(os.environ.get('GRAFANA_PORT', 3000))
@@ -90,7 +91,14 @@ class GrafanaEmail:
         for panel in self.grafana['panel_ids'].split(','):
             params['panelId'] = panel
 
-            response = requests.get(uri, params=params, headers=headers, stream=True, verify=self.grafana['ssl_verify'])
+            response = requests.get(
+                uri,
+                params=params,
+                headers=headers,
+                stream=True,
+                verify=self.grafana['ssl_verify'],
+                timeout=self.grafana['timeout']
+            )
             response.raw.decode_content = True
             if response:
                 # self.panels.append({panel: base64.b64encode(imgObj).decode('UTF-8')})

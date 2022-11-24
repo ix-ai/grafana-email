@@ -48,6 +48,7 @@ You can see the panel url by selecting `Share` in a panel menu (click on its nam
 | `GRAFANA_HEADER_HOST` | -                      | NO            | useful if the hostname of the Grafana host/container is set to something than the FQDN in Grafana |
 | `GRAFANA_URL_PARAMS`  | -                      | NO            | add additional URL params (example: `var-RequestHost=alex&var-Filters=OriginStatus\|!%3D\|404`) |
 | `GRAFANA_SSL_VERIFY`  | TRUE                   | NO            | set to `FALSE` to ignore SSL certificate errors |
+| `GRAFANA_TIMEOUT`     | 60                     | NO            | the number of seconds to wait for the connection to Grafana |
 
 ## Examples
 ### Bash
