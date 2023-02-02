@@ -25,7 +25,7 @@ You can see the panel url by selecting `Share` in a panel menu (click on its nam
 | `GRAFANA_TOKEN`       | -                      | **YES**       | the authentication token for Grafana |
 | `GRAFANA_DASHBOARD`   | -                      | **YES**       | the short code for the dashboard (example: **`gV6maGVZz/e-mail-reports`**) |
 | `SMTP_FROM`           | -                      | **YES**       | the e-mail address of the sender |
-| `SMTP_TO`             | -                      | **YES**       | the e-mail address of the receipient |
+| `SMTP_TO`             | -                      | **YES**       | the e-mail address of the receipient. Alternatively, a space separated list of recipients. |
 | `SMTP_PORT`           | `25`                   | NO            | the port for the SMTP host |
 | `SMTP_HOST`           | `localhost`            | NO            | the SMTP host |
 | `SMTP_SUBJECT`        | `Grafana Email Report` | NO            | the e-mail subject |
