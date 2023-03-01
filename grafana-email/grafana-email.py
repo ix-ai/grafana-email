@@ -29,7 +29,7 @@ class GrafanaEmail:
 
         # These are mandatory
         self.smtp['from'] = os.environ['SMTP_FROM']
-        self.smtp['to'] = os.environ['SMTP_TO']
+        self.smtp['to'] = os.environ['SMTP_TO'].split(' ')
         self._token = os.environ['GRAFANA_TOKEN']
         self.grafana['dashboard'] = os.environ['GRAFANA_DASHBOARD']  # Example: gV6maGVZz
 
@@ -58,7 +58,7 @@ class GrafanaEmail:
 
         self.message['Subject'] = os.environ.get('SMTP_SUBJECT', 'Grafana Email Report')
         self.message['From'] = self.smtp['from']
-        self.message['To'] = self.smtp['to']
+        self.message['To'] = ', '.join(self.smtp['to'])
 
         LOG.debug(f'Panel options: {self.panel_args}')
         LOG.debug(f'SMTP options: {self.smtp}')
