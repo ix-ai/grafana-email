@@ -1,6 +1,7 @@
 FROM alpine:latest@sha256:beefdbd8a1da6d2915566fde36db9db0b524eb737fc57cd1367effd16dc0d06d
 LABEL maintainer="docker@ix.ai" \
-      ai.ix.repository="ix.ai/grafana-email"
+      ai.ix.repository="ix.ai/grafana-email" \
+      org.opencontainers.image.source="https://gitlab.com/ix.ai/grafana-email"
 
 COPY grafana-email.sh /usr/local/bin/grafana-email.sh
 COPY grafana-email/ /grafana-email
