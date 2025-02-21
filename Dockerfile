@@ -1,4 +1,4 @@
-FROM alpine:latest@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c
+FROM public.ecr.aws/docker/library/alpine:3.21.3@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c
 LABEL maintainer="docker@ix.ai" \
       ai.ix.repository="ix.ai/grafana-email" \
       org.opencontainers.image.source="https://gitlab.com/ix.ai/grafana-email"
